@@ -8,15 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var pokemon = [PokemonEntry]()
+    @State var searchText = ""
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
-            .onAppear {
-                PokeSelectedAPI().getData(url: "https://pokeapi.co/api/pokemon/2/") {
-                    url in
-                    print(url)
+        NavigationView {
+            if #available(iOS 15.0, *) {
+                List {
+                    ForEach(searchText == "" ? pokemon : pokemon.filter({
+                        $0.name.contains(searchText.lowercased())
+                    })) { entry in
+                        HStack {
+                            PokemonImage(imageLink: "\(entry.url)").padding(.trailing, 20)
+                            // pokemon image
+                            NavigationLink("\(entry.name)".capitalized, destination: Text("Detail view for \(entry.name)"))
+                        }
+                    }
                 }
+                .onAppear {
+                    PokeAPI().getData() { pokemon in
+                        self.pokemon = pokemon
+                        
+                        for pokemon in pokemon {
+                            print(pokemon.name)
+                        }
+                    }
+                }
+                .searchable(text: $searchText)
+                .navigationTitle("Pokedex")
+            } else {
+                // Fallback on earlier versions
             }
+        }
     }
 }
 
