@@ -11,6 +11,12 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, world!")
             .padding()
+            .onAppear {
+                PokeSelectedAPI().getData(url: "https://pokeapi.co/api/pokemon/2/") {
+                    url in
+                    print(url)
+                }
+            }
     }
 }
 
