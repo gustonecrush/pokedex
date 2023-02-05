@@ -8,6 +8,7 @@ The UI application Pokedex consumes the API from PokeAPI, displaying the list of
 This application consumed the API from <a href="https://pokeapi.co/">PokeAPI</a>
 
 ## SCREENSHOOT
+
 -  List of Pokemon <br /><br />
 <img width="500" src="https://i.postimg.cc/05tDzpbJ/Screen-Shot-2023-02-05-at-11-26-50.png"/>
 <br />
